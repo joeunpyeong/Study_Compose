@@ -27,10 +27,12 @@ class MainActivity : ComponentActivity() {
                 var clickCount : MutableState<Int> = remember { mutableStateOf(0) }
 
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    Greeting("Android",clickCount.value, onClicked = {
-                        Log.d("TAG", "onCreate:클릭됨")
-                        clickCount.value = clickCount.value+1
-                    })
+                    Greeting("Android",clickCount.value,
+                        onClicked = {
+                            Log.d("TAG", "onCreate:클릭됨")
+                            clickCount.value = clickCount.value+1
+                        }
+                    )
                 }
             }
         }
