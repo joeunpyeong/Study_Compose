@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.study_kotlin"
+    namespace = "com.example.study_kotlin_02"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.example.study_kotlin"
+        applicationId = "com.example.study_kotlin_02"
         minSdk = 24
         targetSdk = 33
         versionCode = 1
