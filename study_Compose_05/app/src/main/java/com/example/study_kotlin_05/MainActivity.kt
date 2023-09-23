@@ -9,42 +9,46 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val (text,setValue)= remember {
-                mutableStateOf("")
-            }
+            val (text, setText) = remember { mutableStateOf("") }
 
-            val scaffoldState = rememberScaffoldState()
+            val snackbarHostState = remember { SnackbarHostState() }
+            val coroutineScope = rememberCoroutineScope()
+
             Scaffold(
-                scaffoldState = scaffoldState,
+                snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
             ) {
-                Column (
+                Column(
                     modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    ){
+                ) {
                     TextField(
                         value = text,
-                        onValueChange = setValue,
+                        onValueChange = setText,
                     )
-                    Button(onClick = { }) {
+                    Button(onClick = {
+                        coroutineScope.launch {
+                            snackbarHostState.showSnackbar("hello $text")
+                        }
+                    }) {
                         Text("클릭")
                     }
                 }
             }
-
-
         }
     }
 }
