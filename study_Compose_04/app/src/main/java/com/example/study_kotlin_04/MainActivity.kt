@@ -43,7 +43,8 @@ class MainActivity : ComponentActivity() {
                     .fillMaxWidth(0.5f)
                     .padding(16.dp),
                 isFavorite = isFavorite,
-                ){
+                ){\
+                \
                     favorite -> isFavorite = favorite
             }
         }
